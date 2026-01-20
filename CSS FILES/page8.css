@@ -78,6 +78,14 @@ body {
 
 
 
+/* CSS Update for News Images */
+.news-image {
+    height: 200px;
+    width: 100%;
+    background-size: cover;
+    background-position: center;
+}
+
 .news-content {
     padding: 20px;
 }

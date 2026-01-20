@@ -162,5 +162,16 @@
         renderQuestion();
     </script>
 
+
+    <script>
+        document.addEventListener('click', function() {
+            var audio = document.getElementById('bg-music');
+            if(audio && audio.paused) {
+                audio.play().catch(function(e) {
+                    console.log("Audio play failed:", e);
+                });
+            }
+        }, { once: true });
+    </script>
 </body>
 </html>
