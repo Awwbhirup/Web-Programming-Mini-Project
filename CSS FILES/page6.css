@@ -1,4 +1,4 @@
-/* Page 6: Traffic Signs Library */
+
 
 body {
     background: linear-gradient(135deg, rgba(15, 23, 42, 0.9), rgba(15, 23, 42, 0.95)), url('../MEDIA/road-bg.png');
@@ -72,7 +72,7 @@ body {
     justify-content: center;
 }
 
-/* CSS Shapes for Signs */
+
 .sign-circle {
     width: 80px;
     height: 80px;
@@ -92,7 +92,7 @@ body {
     height: 0;
     border-left: 50px solid transparent;
     border-right: 50px solid transparent;
-    border-bottom: 86px solid #ef4444; /* Height = width * sin(60deg) */
+    border-bottom: 86px solid #ef4444; 
     position: relative;
     display: flex;
     align-items: center;

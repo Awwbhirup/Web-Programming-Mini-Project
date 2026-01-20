@@ -1,4 +1,4 @@
-/* Page 7: Emergency Guidelines */
+
 
 .emergency-header {
     background: linear-gradient(rgba(239, 68, 68, 0.7), rgba(220, 38, 38, 0.8)), url('../MEDIA/emergency-hero.png');
@@ -12,14 +12,14 @@
     box-shadow: 0 10px 30px rgba(220, 38, 38, 0.3);
 }
 
-/* ... pulse button ... */
+
 
 .accordion-item {
     background: rgba(30, 41, 59, 0.6);
     backdrop-filter: blur(20px);
     border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 16px;
-    margin-bottom: 25px; /* Increased spacing */
+    margin-bottom: 25px; 
     overflow: hidden;
     color: white;
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
@@ -27,7 +27,7 @@
 }
 
 .accordion-item:hover {
-    transform: translateY(-2px); /* Subtle lift */
+    transform: translateY(-2px); 
     box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
 }
 
@@ -61,7 +61,7 @@
     color: var(--text-muted);
 }
 
-/* Open State */
+
 .accordion-item.open .accordion-content {
     max-height: 300px;
 }

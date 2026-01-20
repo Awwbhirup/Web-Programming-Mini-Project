@@ -1,4 +1,4 @@
-/* Page 3: Course Dashboard - Premium Revamp */
+
 
 body {
     background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%);
@@ -6,17 +6,17 @@ body {
     overflow-x: hidden;
 }
 
-/* --- Animated Glass Header --- */
-/* Header styles moved to global.css */
 
-/* --- Dashboard Layout --- */
+
+
+
 .dashboard-container {
     display: flex;
-    padding-top: 80px; /* Offset for fixed header */
+    padding-top: 80px; 
     min-height: 100vh;
 }
 
-/* --- Sidebar --- */
+
 .sidebar {
     width: 320px;
     background: rgba(15, 23, 42, 0.3);
@@ -83,7 +83,7 @@ body {
     filter: drop-shadow(0 0 5px rgba(59, 130, 246, 0.5));
 }
 
-/* --- Main Content --- */
+
 .main-content {
     margin-left: 320px;
     flex: 1;
@@ -147,7 +147,7 @@ body {
     margin-bottom: 30px;
 }
 
-/* Audio Section */
+
 .audio-section {
     background: rgba(15, 23, 42, 0.5);
     border-radius: 16px;
@@ -185,7 +185,7 @@ body {
     box-shadow: 0 0 15px rgba(251, 191, 36, 0.2);
 }
 
-/* Animations */
+
 .fade-in-down {
     animation: fadeInDown 0.8s ease-out forwards;
 }

@@ -1,4 +1,4 @@
-/* Page 2: Registration Styles */
+
 
 .reg-container {
     min-height: calc(100vh - var(--header-height));
@@ -12,9 +12,9 @@
     margin-top: var(--header-height);
 }
 
-/* Dark Mode Registration Card */
+
 .reg-card {
-    background: rgba(30, 41, 59, 0.7); /* Dark Glass */
+    background: rgba(30, 41, 59, 0.7); 
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
     border: 1px solid rgba(255, 255, 255, 0.1);

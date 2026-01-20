@@ -1,4 +1,4 @@
-/* Page 5: Contact Styles */
+
 
 body {
     background: linear-gradient(135deg, rgba(15, 23, 42, 0.9), rgba(15, 23, 42, 0.95)), url('../MEDIA/road-bg.png');
@@ -21,29 +21,29 @@ body {
     backdrop-filter: blur(20px);
     border: 1px solid rgba(255, 255, 255, 0.1);
     color: white;
-    padding: 50px; /* More padding */
+    padding: 50px; 
     border-radius: 24px;
     box-shadow: 0 10px 30px rgba(0,0,0,0.2);
     display: flex;
     flex-direction: column;
     justify-content: center;
-    min-height: 500px; /* Ensure visual weight */
+    min-height: 500px; 
 }
 
-/* ... existing styles ... */
+
 
 .contact-form-section {
     background: rgba(30, 41, 59, 0.6);
     backdrop-filter: blur(20px);
     border: 1px solid rgba(255, 255, 255, 0.1);
-    padding: 50px; /* More padding */
+    padding: 50px; 
     border-radius: 24px;
     box-shadow: 0 10px 30px rgba(0,0,0,0.2);
     color: white;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    min-height: 500px; /* Ensure visual weight */
+    min-height: 500px; 
 }
 
 .rating-group {
@@ -69,7 +69,7 @@ input[type="radio"]:checked ~ .rating-star {
     color: #eab308;
 }
 
-/* Hide Radio Buttons */
+
 .rating-group input {
     display: none;
 }

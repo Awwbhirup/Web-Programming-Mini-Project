@@ -1,4 +1,4 @@
-/* Page 4: Quiz Styles */
+
 
 body {
     background: linear-gradient(135deg, rgba(15, 23, 42, 0.9), rgba(15, 23, 42, 0.95)), url('../MEDIA/road-bg.png');
@@ -82,7 +82,7 @@ body {
     height: 20px;
 }
 
-/* Canvas Area */
+
 .canvas-section {
     margin-top: 40px;
     padding-top: 30px;

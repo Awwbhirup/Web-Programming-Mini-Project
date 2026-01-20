@@ -1,27 +1,27 @@
 :root {
-    /* Dark Mode Palette - Premium & Glassy */
-    --primary-color: #3b82f6; /* Brighter blue for dark bg */
+    
+    --primary-color: #3b82f6; 
     --primary-hover: #60a5fa;
     --secondary-color: #34d399;
     --accent-color: #fbbf24;
     --danger-color: #f87171;
     
-    /* Backgrounds */
-    --main-bg: #0f172a; /* Deep Slate */
-    --glass-bg: rgba(30, 41, 59, 0.7); /* Translucent Slate */
+    
+    --main-bg: #0f172a; 
+    --glass-bg: rgba(30, 41, 59, 0.7); 
     --glass-border: 1px solid rgba(255, 255, 255, 0.1);
     
-    /* Text */
+    
     --text-main: #f1f5f9;
     --text-muted: #94a3b8;
     --text-light: #ffffff;
 
-    /* Shadows & Effects */
+    
     --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
     --neon-glow: 0 0 10px rgba(59, 130, 246, 0.5);
     --hover-transform: translateY(-5px);
     
-    /* Spacing */
+    
     --container-width: 1200px;
     --header-height: 80px;
     --border-radius: 16px;
@@ -45,7 +45,7 @@ body {
     overflow-x: hidden;
 }
 
-/* Typography Hierarchy */
+
 h1 {
     font-size: 3.5rem;
     font-weight: 800;
@@ -78,7 +78,7 @@ small {
     color: var(--text-muted);
 }
 
-/* Glassmorphism Utilities */
+
 .glass-panel {
     background: rgba(255, 255, 255, 0.03);
     backdrop-filter: blur(16px);
@@ -113,7 +113,7 @@ ul {
     list-style: none;
 }
 
-/* Animations */
+
 @keyframes fadeIn {
     from { opacity: 0; transform: translateY(20px); }
     to { opacity: 1; transform: translateY(0); }
@@ -123,7 +123,7 @@ ul {
     animation: fadeIn 0.8s ease-out forwards;
 }
 
-/* Common Components */
+
 .container {
     max-width: var(--container-width);
     margin: 0 auto;
@@ -169,7 +169,7 @@ ul {
     border-radius: 2px;
 }
 
-/* --- Animated Glass Header (Premium Global) --- */
+
 .glass-header {
     position: fixed;
     top: 0;
@@ -272,7 +272,7 @@ ul {
     box-shadow: 0 6px 20px rgba(59, 130, 246, 0.5);
 }
 
-/* Animations */
+
 .fade-in-down {
     animation: fadeInDown 0.8s ease-out forwards;
 }

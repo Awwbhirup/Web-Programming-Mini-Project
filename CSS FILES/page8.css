@@ -1,4 +1,4 @@
-/* Page 8: Traffic News Styles */
+
 
 body {
     background: linear-gradient(135deg, rgba(15, 23, 42, 0.9), rgba(15, 23, 42, 0.95)), url('../MEDIA/road-bg.png');
@@ -13,30 +13,44 @@ body {
     padding: 0 20px;
 }
 
+
 .breaking-news {
-    background: #000;
+    background: var(--primary-color);
     color: white;
     padding: 10px 20px;
     display: flex;
     align-items: center;
-    border-radius: 4px;
+    overflow: hidden;
+    white-space: nowrap;
+    position: relative;
+    box-shadow: 0 4px 10px rgba(59, 130, 246, 0.3);
+    border-radius: 8px;
     margin-bottom: 30px;
 }
 
 .breaking-label {
-    background: #ef4444;
-    padding: 2px 8px;
-    font-weight: bold;
+    background: #dc2626;
+    color: white;
+    padding: 4px 10px;
+    border-radius: 4px;
+    font-weight: 800;
     font-size: 0.8rem;
-    border-radius: 2px;
-    margin-right: 15px;
     text-transform: uppercase;
+    margin-right: 15px;
+    z-index: 2;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
 }
 
 .news-ticker {
-    font-family: monospace;
-    white-space: nowrap;
-    overflow: hidden;
+    display: inline-block;
+    padding-left: 100%;
+    animation: ticker 20s linear infinite;
+    font-weight: 500;
+}
+
+@keyframes ticker {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-100%); }
 }
 
 .news-grid {
@@ -62,7 +76,7 @@ body {
     border-color: rgba(255, 255, 255, 0.3);
 }
 
-/* ... image ... */
+
 
 .news-content {
     padding: 20px;

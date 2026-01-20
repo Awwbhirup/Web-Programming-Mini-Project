@@ -1,7 +1,7 @@
-/* Page 1: Landing Page Styles */
 
-/* Hero Section */
-/* Hero Section */
+
+
+
 .hero {
     height: 100vh;
     background: linear-gradient(135deg, rgba(15, 23, 42, 0.85), rgba(15, 23, 42, 0.95)), url('../MEDIA/road-bg.png');
@@ -38,12 +38,12 @@
     line-height: 1.6;
 }
 
-/* ... hero content ... */
 
-/* Features Section */
+
+
 .features {
     padding: 5rem 0;
-    background: transparent; /* Remove white bg */
+    background: transparent; 
 }
 
 .features-grid {
@@ -53,7 +53,7 @@
 }
 
 .feature-card {
-    /* Glassmorphism */
+    
     background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.01) 100%);
     backdrop-filter: blur(10px);
     border: 1px solid rgba(255, 255, 255, 0.1);
@@ -80,7 +80,7 @@
     color: var(--dark-bg);
 }
 
-/* Stats Counter */
+
 .stats-section {
     background: var(--primary-color);
     color: white;
@@ -109,7 +109,7 @@
     opacity: 0.9;
 }
 
-/* Navigation - Specific overlap customisation */
+
 .navbar {
     position: fixed;
     top: 0;
