@@ -44,7 +44,7 @@
                 <p>Start your journey to becoming a pro driver.</p>
             </div>
             
-            <form action="#" onsubmit="event.preventDefault(); alert('Registration Successful (Simulation)!'); window.location.href='page3.html';">
+            <form action="page3.html">
                 <div class="form-group">
                     <label>Full Name</label>
                     <input type="text" class="form-control" placeholder="John Doe" required>
@@ -98,15 +98,6 @@
     </div>
 
 
-    <script>
-        document.addEventListener('click', function() {
-            var audio = document.getElementById('bg-music');
-            if(audio && audio.paused) {
-                audio.play().catch(function(e) {
-                    console.log("Audio play failed:", e);
-                });
-            }
-        }, { once: true });
-    </script>
+
 </body>
 </html>

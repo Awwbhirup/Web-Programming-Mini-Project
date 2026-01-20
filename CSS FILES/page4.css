@@ -1,5 +1,4 @@
 
-
 body {
     background: linear-gradient(135deg, rgba(15, 23, 42, 0.9), rgba(15, 23, 42, 0.95)), url('../MEDIA/road-bg.png');
     background-size: cover;
@@ -10,13 +9,6 @@ body {
 .quiz-container {
     max-width: 800px;
     margin: calc(var(--header-height) + 50px) auto 50px;
-    background: rgba(30, 41, 59, 0.6);
-    backdrop-filter: blur(20px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    padding: 40px;
-    border-radius: 20px;
-    box-shadow: 0 20px 50px rgba(0,0,0,0.3);
-    color: white;
 }
 
 .quiz-header {
@@ -35,11 +27,27 @@ body {
 
 .progress-fill {
     height: 100%;
-    width: 10%;
+    width: 100%; /* Static full width for now since static HTML */
     background: var(--primary-color);
     border-radius: 5px;
-    transition: width 0.3s ease;
     box-shadow: 0 0 10px var(--primary-color);
+}
+
+/* Question Card Styling */
+.question-card {
+    background: rgba(30, 41, 59, 0.6);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    margin-bottom: 30px;
+    transition: transform 0.3s ease;
+}
+
+.question-card:hover {
+    transform: translateY(-5px);
+    border-color: rgba(255, 255, 255, 0.2);
 }
 
 .question-text {
@@ -49,66 +57,61 @@ body {
     color: white;
 }
 
+.options-list {
+    list-style: none;
+    padding: 0;
+}
+
+/* Radio Button Styling */
 .option-item {
+    margin-bottom: 12px;
+}
+
+.option-item input[type="radio"] {
+    display: none; /* Hide default radio */
+}
+
+.option-item label {
+    display: flex;
+    align-items: center;
     padding: 15px;
     border: 1px solid rgba(255, 255, 255, 0.2);
     border-radius: 12px;
-    margin-bottom: 10px;
     cursor: pointer;
     transition: all 0.2s;
-    display: flex;
-    align-items: center;
     background: rgba(0, 0, 0, 0.2);
     color: rgba(255, 255, 255, 0.8);
+    position: relative;
+    overflow: hidden;
 }
 
-.option-item:hover {
+.option-item label::before {
+    content: '';
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: 2px solid rgba(255, 255, 255, 0.5);
+    margin-right: 15px;
+    transition: all 0.2s;
+}
+
+.option-item input[type="radio"]:checked + label {
     background: rgba(59, 130, 246, 0.2);
     border-color: var(--primary-color);
     color: white;
-}
-
-.option-item.selected {
-    background: rgba(59, 130, 246, 0.4);
-    border-color: var(--primary-color);
-    color: white;
     font-weight: 600;
+    box-shadow: 0 0 15px rgba(59, 130, 246, 0.2);
 }
 
-.option-radio {
-    margin-right: 15px;
-    accent-color: var(--primary-color);
-    width: 20px;
-    height: 20px;
+.option-item input[type="radio"]:checked + label::before {
+    background: var(--primary-color);
+    border-color: var(--primary-color);
+    box-shadow: inset 0 0 0 4px rgba(30, 41, 59, 1);
 }
 
-
-.canvas-section {
-    margin-top: 40px;
-    padding-top: 30px;
-    border-top: 1px dashed rgba(255, 255, 255, 0.2);
-}
-
-.canvas-wrapper {
-    width: 100%;
-    height: 300px;
-    border: 2px dashed rgba(255, 255, 255, 0.3);
-    background: rgba(0, 0, 0, 0.3);
-    border-radius: 12px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-    cursor: crosshair;
-}
-
-.canvas-wrapper:hover {
-    background: #f1f5f9;
-}
-
-.canvas-placeholder {
-    color: #94a3b8;
-    pointer-events: none;
+.option-item label:hover {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(255, 255, 255, 0.3);
 }
 
 .quiz-nav {

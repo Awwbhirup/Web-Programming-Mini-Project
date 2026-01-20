@@ -36,7 +36,7 @@
         </div>
     </header>
 
-    <div class="contact-container">
+    <div class="contact-container fade-in">
         
         
         <div class="contact-info">
@@ -75,7 +75,7 @@
         <div class="contact-form-section">
             <h3 style="margin-bottom: 20px; color: var(--dark-bg);">Send Feedback</h3>
             
-            <form action="#" onsubmit="event.preventDefault(); alert('Thank you for your feedback!');">
+            <form action="#">
                 <div class="form-group" style="margin-bottom: 20px;">
                     <label style="display: block; margin-bottom: 8px;">Rate your experience</label>
                     <div class="rating-group">
@@ -99,15 +99,6 @@
     </div>
 
 
-    <script>
-        document.addEventListener('click', function() {
-            var audio = document.getElementById('bg-music');
-            if(audio && audio.paused) {
-                audio.play().catch(function(e) {
-                    console.log("Audio play failed:", e);
-                });
-            }
-        }, { once: true });
-    </script>
+
 </body>
 </html>

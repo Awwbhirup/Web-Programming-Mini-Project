@@ -14,7 +14,6 @@
 <body>
     <audio id="bg-music" autoplay loop style="display:none"><source src="../MEDIA/BACKGROUND.mp3" type="audio/mp3"></audio>
 
-    
     <header class="glass-header fade-in-down">
         <div class="header-content">
             <a href="page1.html" class="logo-area">
@@ -36,24 +35,24 @@
         </div>
     </header>
 
-    <div class="dashboard-container">
+    <div class="dashboard-container fade-in">
         
         <div class="sidebar glass-panel">
             <h3 class="sidebar-title">Curriculum</h3>
             <div class="module-list">
-                <div class="module-item active" onclick="loadLesson(1, this)">
+                <div class="module-item active pop-in delay-100">
                     <span class="module-text">1. Introduction to Road Safety</span>
                     <i class="fas fa-play-circle status-icon"></i>
                 </div>
-                <div class="module-item" onclick="loadLesson(2, this)">
+                <div class="module-item pop-in delay-200">
                     <span class="module-text">2. Understanding Rights of Way</span>
                     <i class="fas fa-lock status-icon"></i>
                 </div>
-                <div class="module-item" onclick="loadLesson(3, this)">
+                <div class="module-item pop-in delay-300">
                     <span class="module-text">3. Dashboard Symbols</span>
                     <i class="fas fa-lock status-icon"></i>
                 </div>
-                 <div class="module-item" onclick="loadLesson(4, this)">
+                 <div class="module-item pop-in delay-400">
                     <span class="module-text">4. Preventing Road Accidents</span>
                     <i class="fas fa-lock status-icon"></i>
                 </div>
@@ -95,65 +94,6 @@
         </div>
     </div>
 
-    <script>
-        const lessons = {
-            1: {
-                title: "1. Introduction to Road Safety",
-                desc: "Fundamentals of defensive driving, seatbelts, and safe distances. The core of being a responsible driver starts here.",
-                youtubeId: "7TESgUA-JW4" 
-            },
-            2: {
-                title: "2. Understanding Rights of Way",
-                desc: "Who goes first at a 4-way stop? Learn the hierarchy of road users and how to navigate complex intersections safely.",
-                youtubeId: "qV4l66WByC4"
-            },
-            3: {
-                title: "3. Dashboard Symbols Details",
-                desc: "Decode the lights on your dashboard. From check engine to tire pressure, know what your car is telling you.",
-                youtubeId: "IuK-XdWO5us"
-            },
-            4: {
-                title: "4. Preventing Road Accidents",
-                desc: "Learn crucial strategies to anticipate hazards and avoid common accidents. Stay safe and keep others safe.",
-                youtubeId: "xqeNi9TQn70"
-            }
-        };
 
-        function loadLesson(id, element) {
-            document.querySelectorAll('.module-item').forEach(item => item.classList.remove('active'));
-            element.classList.add('active');
-            
-            const lesson = lessons[id];
-            if(lesson) {
-                document.getElementById('lessonTitle').classList.remove('fade-in');
-                document.getElementById('lessonDesc').classList.remove('fade-in');
-                
-                void document.getElementById('lessonTitle').offsetWidth; 
-
-                document.getElementById('lessonTitle').innerText = lesson.title;
-                document.getElementById('lessonDesc').innerText = lesson.desc;
-
-                document.getElementById('lessonTitle').classList.add('fade-in');
-                document.getElementById('lessonDesc').classList.add('fade-in');
-
-                const vid = document.getElementById('videoPlayer');
-                // Reload video to play from start for new lesson (optional, or just keep playing)
-                vid.load();
-                vid.play();
-            }
-        }
-    </script>
-
-
-    <script>
-        document.addEventListener('click', function() {
-            var audio = document.getElementById('bg-music');
-            if(audio && audio.paused) {
-                audio.play().catch(function(e) {
-                    console.log("Audio play failed:", e);
-                });
-            }
-        }, { once: true });
-    </script>
 </body>
 </html>
