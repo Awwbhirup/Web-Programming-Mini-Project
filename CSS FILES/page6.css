@@ -1,0 +1,144 @@
+/* Page 6: Traffic Signs Library */
+
+body {
+    background: linear-gradient(135deg, rgba(15, 23, 42, 0.9), rgba(15, 23, 42, 0.95)), url('../MEDIA/road-bg.png');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+}
+
+.filter-bar {
+    padding: 20px 0;
+    margin-top: calc(var(--header-height) + 20px);
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.filter-btn {
+    padding: 10px 20px;
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.05);
+    cursor: pointer;
+    font-weight: 600;
+    color: var(--text-muted);
+    transition: all 0.3s;
+}
+
+.filter-btn.active, .filter-btn:hover {
+    background: var(--primary-color);
+    color: white;
+    border-color: var(--primary-color);
+}
+
+.signs-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 30px;
+    padding: 40px 0;
+}
+
+.sign-card {
+    background: rgba(30, 41, 59, 0.6);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+    transition: all 0.3s;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    color: white;
+}
+
+.sign-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+}
+
+.sign-visual {
+    width: 100px;
+    height: 100px;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* CSS Shapes for Signs */
+.sign-circle {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    border: 8px solid #ef4444;
+    background: white;
+    color: black;
+    font-weight: bold;
+    font-size: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.sign-triangle {
+    width: 0;
+    height: 0;
+    border-left: 50px solid transparent;
+    border-right: 50px solid transparent;
+    border-bottom: 86px solid #ef4444; /* Height = width * sin(60deg) */
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.sign-triangle::after {
+    content: '';
+    position: absolute;
+    top: 6px;
+    left: -40px;
+    width: 0;
+    height: 0;
+    border-left: 40px solid transparent;
+    border-right: 40px solid transparent;
+    border-bottom: 69px solid white;
+}
+
+.sign-triangle span {
+    position: absolute;
+    top: 35px;
+    z-index: 2;
+    font-size: 1.5rem;
+    color: black;
+}
+
+.sign-rectangle {
+    width: 80px;
+    height: 80px;
+    background: #3b82f6;
+    border-radius: 4px;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    border: 4px solid white;
+    outline: 4px solid #3b82f6;
+}
+
+.sign-card h3 {
+    font-size: 1.1rem;
+    margin-bottom: 5px;
+}
+
+.sign-card p {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+}

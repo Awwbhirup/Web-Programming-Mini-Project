@@ -1,0 +1,211 @@
+/* Page 3: Course Dashboard - Premium Revamp */
+
+body {
+    background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%);
+    color: #f8fafc;
+    overflow-x: hidden;
+}
+
+/* --- Animated Glass Header --- */
+/* Header styles moved to global.css */
+
+/* --- Dashboard Layout --- */
+.dashboard-container {
+    display: flex;
+    padding-top: 80px; /* Offset for fixed header */
+    min-height: 100vh;
+}
+
+/* --- Sidebar --- */
+.sidebar {
+    width: 320px;
+    background: rgba(15, 23, 42, 0.3);
+    border-right: 1px solid rgba(255, 255, 255, 0.05);
+    padding: 30px 20px;
+    position: fixed;
+    height: calc(100vh - 80px);
+    overflow-y: auto;
+}
+
+.sidebar-title {
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: #64748b;
+    margin-bottom: 25px;
+    padding-left: 10px;
+}
+
+.module-item {
+    padding: 18px 20px;
+    margin-bottom: 12px;
+    border-radius: 16px;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    border: 1px solid transparent;
+    background: rgba(255, 255, 255, 0.02);
+}
+
+.module-item:hover {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(255, 255, 255, 0.1);
+    transform: translateX(5px);
+}
+
+.module-item.active {
+    background: linear-gradient(90deg, rgba(59, 130, 246, 0.15), transparent);
+    border-left: 3px solid #3b82f6;
+    border-radius: 4px 16px 16px 4px;
+}
+
+.module-text {
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: #cbd5e1;
+}
+
+.module-item.active .module-text {
+    color: white;
+    font-weight: 600;
+}
+
+.status-icon {
+    font-size: 1.1rem;
+    color: #475569;
+    transition: color 0.3s ease;
+}
+
+.module-item.active .status-icon {
+    color: #60a5fa;
+    filter: drop-shadow(0 0 5px rgba(59, 130, 246, 0.5));
+}
+
+/* --- Main Content --- */
+.main-content {
+    margin-left: 320px;
+    flex: 1;
+    padding: 40px 60px;
+}
+
+.video-wrapper {
+    padding: 10px;
+    border-radius: 24px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+    margin-bottom: 30px;
+}
+
+.video-container {
+    width: 100%;
+    aspect-ratio: 16/9;
+    border-radius: 16px;
+    overflow: hidden;
+    position: relative;
+    background: #000;
+}
+
+.lesson-content {
+    background: linear-gradient(135deg, rgba(30, 41, 59, 0.4), rgba(15, 23, 42, 0.6));
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 24px;
+    padding: 40px;
+}
+
+.lesson-title {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 15px;
+    background: linear-gradient(90deg, #fff, #94a3b8);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.lesson-meta {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 25px;
+}
+
+.badge {
+    font-size: 0.8rem;
+    padding: 5px 12px;
+    border-radius: 20px;
+    background: rgba(59, 130, 246, 0.1);
+    color: #60a5fa;
+    border: 1px solid rgba(59, 130, 246, 0.2);
+}
+
+.lesson-desc {
+    font-size: 1.1rem;
+    color: #cbd5e1;
+    line-height: 1.7;
+    margin-bottom: 30px;
+}
+
+/* Audio Section */
+.audio-section {
+    background: rgba(15, 23, 42, 0.5);
+    border-radius: 16px;
+    padding: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.audio-section h4 {
+    color: #fbbf24;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 1.1rem;
+}
+
+.btn-audio {
+    padding: 10px 20px;
+    background: rgba(251, 191, 36, 0.1);
+    color: #fbbf24;
+    border: 1px solid rgba(251, 191, 36, 0.3);
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.btn-audio:hover {
+    background: rgba(251, 191, 36, 0.2);
+    box-shadow: 0 0 15px rgba(251, 191, 36, 0.2);
+}
+
+/* Animations */
+.fade-in-down {
+    animation: fadeInDown 0.8s ease-out forwards;
+}
+
+.fade-in {
+    animation: fadeIn 0.5s ease-out forwards;
+}
+
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}

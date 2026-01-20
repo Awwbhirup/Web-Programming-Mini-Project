@@ -1,0 +1,65 @@
+/* Page 7: Emergency Guidelines */
+
+.emergency-header {
+    background: linear-gradient(rgba(239, 68, 68, 0.7), rgba(220, 38, 38, 0.8)), url('../MEDIA/emergency-hero.png');
+    background-size: cover;
+    background-position: center;
+    color: white;
+    padding: 60px 20px;
+    text-align: center;
+    margin-top: var(--header-height);
+    border-radius: 0 0 30px 30px;
+    box-shadow: 0 10px 30px rgba(220, 38, 38, 0.3);
+}
+
+/* ... pulse button ... */
+
+.accordion-item {
+    background: rgba(30, 41, 59, 0.6);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+    margin-bottom: 20px;
+    overflow: hidden;
+    color: white;
+}
+
+.accordion-header {
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.05);
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: 600;
+    color: white;
+    transition: background 0.3s;
+}
+
+.accordion-header:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.accordion-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-out;
+    background: transparent;
+    padding: 0 20px;
+}
+
+.accordion-content p {
+    padding: 20px 0;
+    line-height: 1.6;
+    color: var(--text-muted);
+}
+
+/* Open State */
+.accordion-item.open .accordion-content {
+    max-height: 300px;
+}
+
+.accordion-item.open .accordion-header {
+    background: rgba(59, 130, 246, 0.2);
+    color: var(--primary-color);
+}

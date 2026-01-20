@@ -1,0 +1,118 @@
+/* Page 4: Quiz Styles */
+
+body {
+    background: linear-gradient(135deg, rgba(15, 23, 42, 0.9), rgba(15, 23, 42, 0.95)), url('../MEDIA/road-bg.png');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+}
+
+.quiz-container {
+    max-width: 800px;
+    margin: calc(var(--header-height) + 50px) auto 50px;
+    background: rgba(30, 41, 59, 0.6);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+    color: white;
+}
+
+.quiz-header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.progress-track {
+    width: 100%;
+    height: 10px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 5px;
+    margin: 20px 0;
+    overflow: hidden;
+}
+
+.progress-fill {
+    height: 100%;
+    width: 10%;
+    background: var(--primary-color);
+    border-radius: 5px;
+    transition: width 0.3s ease;
+    box-shadow: 0 0 10px var(--primary-color);
+}
+
+.question-text {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 20px;
+    color: white;
+}
+
+.option-item {
+    padding: 15px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 12px;
+    margin-bottom: 10px;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.2);
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.option-item:hover {
+    background: rgba(59, 130, 246, 0.2);
+    border-color: var(--primary-color);
+    color: white;
+}
+
+.option-item.selected {
+    background: rgba(59, 130, 246, 0.4);
+    border-color: var(--primary-color);
+    color: white;
+    font-weight: 600;
+}
+
+.option-radio {
+    margin-right: 15px;
+    accent-color: var(--primary-color);
+    width: 20px;
+    height: 20px;
+}
+
+/* Canvas Area */
+.canvas-section {
+    margin-top: 40px;
+    padding-top: 30px;
+    border-top: 1px dashed rgba(255, 255, 255, 0.2);
+}
+
+.canvas-wrapper {
+    width: 100%;
+    height: 300px;
+    border: 2px dashed rgba(255, 255, 255, 0.3);
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    cursor: crosshair;
+}
+
+.canvas-wrapper:hover {
+    background: #f1f5f9;
+}
+
+.canvas-placeholder {
+    color: #94a3b8;
+    pointer-events: none;
+}
+
+.quiz-nav {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 30px;
+}

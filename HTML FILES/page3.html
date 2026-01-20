@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Course Dashboard | Traffic Rules Academy</title>
+    <link rel="stylesheet" href="../CSS FILES/global.css">
+    <link rel="stylesheet" href="../CSS FILES/page3.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- Modern Animated Header Banner -->
+    <header class="glass-header fade-in-down">
+        <div class="header-content">
+            <a href="page1.html" class="logo-area">
+                <div class="logo-icon">
+                    <i class="fas fa-traffic-light"></i>
+                </div>
+                <div class="logo-text">
+                    TRAFFIC<span>ACADEMY</span>
+                </div>
+            </a>
+            <nav class="nav-links">
+                <a href="page1.html">Home</a>
+                <a href="page6.html">Signs</a>
+                <a href="page3.html" class="active">Courses</a>
+                <a href="page4.html">Quiz</a>
+                <a href="page8.html">News</a>
+                <a href="page2.html" class="btn-register">Register</a>
+            </nav>
+        </div>
+    </header>
+
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <div class="sidebar glass-panel">
+            <h3 class="sidebar-title">Curriculum</h3>
+            <div class="module-list">
+                <div class="module-item active" onclick="loadLesson(1, this)">
+                    <span class="module-text">1. Introduction to Road Safety</span>
+                    <i class="fas fa-play-circle status-icon"></i>
+                </div>
+                <div class="module-item" onclick="loadLesson(2, this)">
+                    <span class="module-text">2. Understanding Rights of Way</span>
+                    <i class="fas fa-lock status-icon"></i>
+                </div>
+                <div class="module-item" onclick="loadLesson(3, this)">
+                    <span class="module-text">3. Dashboard Symbols</span>
+                    <i class="fas fa-lock status-icon"></i>
+                </div>
+                 <div class="module-item" onclick="loadLesson(4, this)">
+                    <span class="module-text">4. Preventing Road Accidents</span>
+                    <i class="fas fa-lock status-icon"></i>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <div class="video-wrapper glass-card">
+                <div class="video-container" id="videoContainer">
+                     <iframe id="videoPlayer" src="https://www.youtube.com/embed/7TESgUA-JW4?si=9XGHIIrAakzGuBJo&controls=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </div>
+            </div>
+
+            <div class="lesson-content glass-panel fade-in">
+                <h2 class="lesson-title" id="lessonTitle">1. Introduction to Road Safety</h2>
+                <div class="lesson-meta">
+                    <span class="badge"><i class="fas fa-clock"></i> 10 Mins</span>
+                    <span class="badge"><i class="fas fa-signal"></i> Beginner</span>
+                </div>
+                <p class="lesson-desc" id="lessonDesc">
+                    In this lesson, we will cover the fundamental principles of defensive driving, the importance of seatbelts, and how to maintain a safe following distance.
+                </p>
+
+                <div class="audio-section">
+                    <h4><i class="fas fa-headphones"></i> Audio Guide: Signal Sounds</h4>
+                    <div class="audio-controls">
+                        <button class="btn-audio"><i class="fas fa-play"></i> Play Audio</button>
+                        <div class="audio-wave">
+                            <span></span><span></span><span></span><span></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const lessons = {
+            1: {
+                title: "1. Introduction to Road Safety",
+                desc: "Fundamentals of defensive driving, seatbelts, and safe distances. The core of being a responsible driver starts here.",
+                youtubeId: "7TESgUA-JW4" 
+            },
+            2: {
+                title: "2. Understanding Rights of Way",
+                desc: "Who goes first at a 4-way stop? Learn the hierarchy of road users and how to navigate complex intersections safely.",
+                youtubeId: "qV4l66WByC4"
+            },
+            3: {
+                title: "3. Dashboard Symbols Details",
+                desc: "Decode the lights on your dashboard. From check engine to tire pressure, know what your car is telling you.",
+                youtubeId: "IuK-XdWO5us"
+            },
+            4: {
+                title: "4. Preventing Road Accidents",
+                desc: "Learn crucial strategies to anticipate hazards and avoid common accidents. Stay safe and keep others safe.",
+                youtubeId: "xqeNi9TQn70"
+            }
+        };
+
+        function loadLesson(id, element) {
+            // Update Active State
+            document.querySelectorAll('.module-item').forEach(el => {
+                el.classList.remove('active');
+                // Reset icons for demo purposes
+                el.querySelector('.status-icon').className = 'fas fa-lock status-icon';
+            });
+            element.classList.add('active');
+            element.querySelector('.status-icon').className = 'fas fa-play-circle status-icon';
+
+            // Update Content
+            const lesson = lessons[id];
+            if(lesson) {
+                const titleEl = document.getElementById('lessonTitle');
+                const descEl = document.getElementById('lessonDesc');
+                
+                // Animate text change
+                titleEl.style.opacity = 0;
+                descEl.style.opacity = 0;
+                
+                setTimeout(() => {
+                    titleEl.innerText = lesson.title;
+                    descEl.innerText = lesson.desc;
+                    titleEl.style.opacity = 1;
+                    descEl.style.opacity = 1;
+                }, 200);
+                
+                // Update YouTube Video
+                const vid = document.getElementById('videoPlayer');
+                vid.style.opacity = 0;
+                
+                setTimeout(() => {
+                    // Update src with new ID and params
+                    vid.src = `https://www.youtube.com/embed/${lesson.youtubeId}?si=9XGHIIrAakzGuBJo&controls=0&origin=${window.location.origin}`;
+                    // Attempt to reset attributes to ensure proper permissions
+                    vid.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share');
+                    vid.setAttribute('referrerpolicy', 'strict-origin-when-cross-origin');
+                    vid.style.opacity = 1;
+                }, 300);
+            }
+        }
+    </script>
+
+</body>
+</html>

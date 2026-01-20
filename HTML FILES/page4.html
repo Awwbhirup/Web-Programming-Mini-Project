@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Assessment | Traffic Rules Academy</title>
+    <link rel="stylesheet" href="../CSS FILES/global.css">
+    <link rel="stylesheet" href="../CSS FILES/page4.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- Modern Animated Header Banner -->
+    <header class="glass-header fade-in-down">
+        <div class="header-content">
+            <a href="page1.html" class="logo-area">
+                <div class="logo-icon">
+                    <i class="fas fa-traffic-light"></i>
+                </div>
+                <div class="logo-text">
+                    TRAFFIC<span>ACADEMY</span>
+                </div>
+            </a>
+            <nav class="nav-links">
+                <a href="page1.html">Home</a>
+                <a href="page6.html">Signs</a>
+                <a href="page3.html">Courses</a>
+                <a href="page4.html" class="active">Quiz</a>
+                <a href="page8.html">News</a>
+                <a href="page2.html" class="btn-register">Register</a>
+            </nav>
+        </div>
+    </header>
+
+    <div class="quiz-container">
+        <div class="quiz-header">
+            <h2 id="qTitle">Module 1 Assessment</h2>
+            <div class="progress-track">
+                <div class="progress-fill" id="progressBar" style="width: 10%"></div>
+            </div>
+            <p style="color: var(--text-muted); font-size: 0.9rem;" id="qCounter">Question 1 of 10</p>
+        </div>
+
+        <!-- Dynamic Question Block -->
+        <div class="question-card" id="questionContainer">
+            <!-- Injected by JS -->
+        </div>
+
+        <!-- Canvas Interaction (Only for last question) -->
+        <div class="canvas-section" id="canvasSection" style="display: none;">
+            <p class="question-text">Bonus: Draw the shape of a "Give Way" sign:</p>
+            <div class="canvas-wrapper">
+                <canvas id="drawingCanvas" width="700" height="300" style="position: absolute; top: 0; left: 0;"></canvas>
+                <div class="canvas-placeholder">
+                    <i class="fas fa-pencil-alt"></i> Draw here
+                </div>
+            </div>
+            <button class="btn" style="margin-top: 10px; background: rgba(255,255,255,0.1); border: 1px solid white; font-size: 0.8rem;" onclick="clearCanvas()">Clear Canvas</button>
+        </div>
+
+        <div class="quiz-nav">
+            <button class="btn" style="background: transparent; border: 1px solid #cbd5e1; color: white;" onclick="nextQuestion(-1)">Previous</button>
+            <button class="btn" onclick="nextQuestion(1)">Next Question</button>
+        </div>
+    </div>
+
+    <script>
+        const questions = [
+            { t: "1. What does a red octagonal sign indicate?", o: ["Yield", "Stop", "No Parking", "School Zone"], a: 1 },
+            { t: "2. When can you turn left on a red light?", o: ["Never", "Always", "Where signage permits", "If no cars are coming"], a: 2 },
+            { t: "3. What is the standard speed limit in a residential area?", o: ["30 km/h", "50 km/h", "60 km/h", "80 km/h"], a: 1 },
+            { t: "4. A solid white line on the road means:", o: ["Overtaking allowed", "Overtaking prohibited", "Parking allowed", "Bus lane"], a: 1 },
+            { t: "5. What should you do when you hear a siren?", o: ["Speed up", "Stop immediately", "Pull over safely", "Ignora if far away"], a: 2 },
+            { t: "6. Green Arrow traffic light means:", o: ["Stop", "Go in direction of arrow", "Yield to oncoming", "U-Turn Only"], a: 1 },
+            { t: "7. In fog, you should use:", o: ["High beams", "Low beams", "Parking lights", "No lights"], a: 1 },
+            { t: "8. A flashing yellow light means:", o: ["Stop", "Proceed with caution", "Speed up", "Road closed"], a: 1 },
+            { t: "9. Who has right of way at a pedestrian crossing?", o: ["The car", "The faster vehicle", "The pedestrian", "Cyclists"], a: 2 },
+            { t: "10. Bonus: Draw a Give Way sign below.", o: [], type: "canvas" }
+        ];
+
+        let currentQ = 0;
+
+        function renderQuestion() {
+            const container = document.getElementById('questionContainer');
+            const q = questions[currentQ];
+            
+            // Update Header
+            document.getElementById('qCounter').innerText = `Question ${currentQ + 1} of ${questions.length}`;
+            document.getElementById('progressBar').style.width = `${((currentQ + 1) / questions.length) * 100}%`;
+
+            if(q.type === 'canvas') {
+                container.innerHTML = '';
+                document.getElementById('canvasSection').style.display = 'block';
+                return;
+            } else {
+                document.getElementById('canvasSection').style.display = 'none';
+            }
+
+            let html = `<p class="question-text">${q.t}</p><ul class="options-list">`;
+            q.o.forEach((opt, idx) => {
+                html += `<li class="option-item" onclick="selectOption(this)">
+                            <div style="width:20px; height:20px; border-radius:50%; border:2px solid white; margin-right:15px;"></div>
+                            <span>${opt}</span>
+                         </li>`;
+            });
+            html += `</ul>`;
+            container.innerHTML = html;
+        }
+
+        function selectOption(el) {
+            document.querySelectorAll('.option-item').forEach(x => {
+                x.classList.remove('selected');
+                x.querySelector('div').style.background = 'transparent';
+            });
+            el.classList.add('selected');
+            el.querySelector('div').style.background = 'var(--primary-color)';
+        }
+
+        function nextQuestion(dir) {
+            if(currentQ + dir >= 0 && currentQ + dir < questions.length) {
+                currentQ += dir;
+                renderQuestion();
+            } else if (currentQ + dir >= questions.length) {
+                alert("Assessment Complete! Score: 9/10");
+            }
+        }
+
+        // Canvas Logic
+        const canvas = document.getElementById('drawingCanvas');
+        const ctx = canvas.getContext('2d');
+        let drawing = false;
+
+        canvas.addEventListener('mousedown', () => drawing = true);
+        canvas.addEventListener('mouseup', () => { drawing = false; ctx.beginPath(); });
+        canvas.addEventListener('mousemove', draw);
+
+        function draw(event) {
+            if (!drawing) return;
+            const rect = canvas.getBoundingClientRect();
+            ctx.lineWidth = 3; 
+            ctx.lineCap = 'round'; 
+            ctx.strokeStyle = '#60a5fa'; // Light blue for dark theme
+            
+            ctx.lineTo(event.clientX - rect.left, event.clientY - rect.top);
+            ctx.stroke();
+            ctx.beginPath();
+            ctx.moveTo(event.clientX - rect.left, event.clientY - rect.top);
+            
+            document.querySelector('.canvas-placeholder').style.opacity = 0;
+        }
+
+        function clearCanvas() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            document.querySelector('.canvas-placeholder').style.opacity = 1;
+        }
+
+        // Init
+        renderQuestion();
+    </script>
+
+</body>
+</html>
