@@ -144,11 +144,15 @@
                 vid.style.opacity = 0;
                 
                 setTimeout(() => {
-                    // Update src with new ID and params
-                    vid.src = `https://www.youtube.com/embed/${lesson.youtubeId}?si=9XGHIIrAakzGuBJo&controls=0&origin=${window.location.origin}`;
-                    // Attempt to reset attributes to ensure proper permissions
-                    vid.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share');
-                    vid.setAttribute('referrerpolicy', 'strict-origin-when-cross-origin');
+                    let originParam = '';
+                    if (window.location.protocol !== 'file:') {
+                        originParam = `&origin=${window.location.origin}`;
+                    }
+                    
+                    // Robust Embed URL
+                    vid.src = `https://www.youtube.com/embed/${lesson.youtubeId}?autoplay=1&rel=0&modestbranding=1${originParam}`;
+                    
+                    vid.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture');
                     vid.style.opacity = 1;
                 }, 300);
             }
