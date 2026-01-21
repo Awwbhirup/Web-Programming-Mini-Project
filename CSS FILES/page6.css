@@ -1,11 +1,6 @@
 
 
-body {
-    background: linear-gradient(135deg, rgba(15, 23, 42, 0.9), rgba(15, 23, 42, 0.95)), url('../MEDIA/road-bg.png');
-    background-size: cover;
-    background-position: center;
-    background-attachment: fixed;
-}
+
 
 .filter-bar {
     padding: 20px 0;
