@@ -47,17 +47,17 @@
             <form action="page3.html">
                 <div class="form-group">
                     <label>Full Name</label>
-                    <input type="text" class="form-control" placeholder="John Doe" required>
+                    <input type="text" id="regName" class="form-control" placeholder="John Doe" required>
                 </div>
                 
                 <div class="form-row">
                     <div class="form-group">
                         <label>Age</label>
-                        <input type="number" class="form-control" min="16" max="99" placeholder="18" required>
+                        <input type="number" id="regAge" class="form-control" min="16" max="99" placeholder="18" required>
                     </div>
                     <div class="form-group">
                         <label>State</label>
-                        <select class="form-control">
+                        <select id="regState" class="form-control">
                             <option>Maharashtra</option>
                             <option>Delhi</option>
                             <option>Karnataka</option>
@@ -68,12 +68,17 @@
 
                 <div class="form-group">
                     <label>Email Address</label>
-                    <input type="email" class="form-control" placeholder="john@example.com" required>
+                    <input type="email" id="regEmail" class="form-control" placeholder="john@example.com" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Phone Number</label>
+                    <input type="tel" id="regPhone" class="form-control" placeholder="+91 9876543210" required>
                 </div>
 
                 <div class="form-group">
                     <label>Password</label>
-                    <input type="password" class="form-control" placeholder="••••••••" required>
+                    <input type="password" id="regPassword" class="form-control" placeholder="••••••••" required>
                 </div>
 
                 <div class="form-group">
@@ -97,6 +102,7 @@
         </div>
     </div>
 
+    <script src="../JS FILES/cookies.js"></script>
     <script src="../JS FILES/page2.js"></script>
 </body>
 </html>

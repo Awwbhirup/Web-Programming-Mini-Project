@@ -1,6 +1,58 @@
 
 document.addEventListener('DOMContentLoaded', function () {
 
+    function setCookie(name, value, days) {
+        var expires = '';
+        if (days) {
+            var date = new Date();
+            date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+            expires = '; expires=' + date.toUTCString();
+        }
+        document.cookie = name + '=' + encodeURIComponent(value) + expires + '; path=/';
+    }
+
+    function getCookie(name) {
+        var nameEQ = name + '=';
+        var ca = document.cookie.split(';');
+        for (var i = 0; i < ca.length; i++) {
+            var c = ca[i].trim();
+            if (c.indexOf(nameEQ) === 0) return decodeURIComponent(c.substring(nameEQ.length));
+        }
+        return null;
+    }
+
+    function deleteCookie(name) {
+        document.cookie = name + '=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/';
+    }
+
+    if (!getCookie('cookieConsent')) {
+        var banner = document.createElement('div');
+        banner.className = 'cookie-consent-banner';
+        banner.innerHTML =
+            '<div class="cookie-consent-text">' +
+                '<i class="fas fa-cookie-bite"></i>' +
+                'We use cookies to enhance your experience, remember your preferences, and personalize content. ' +
+                'By clicking "Accept", you consent to our use of cookies.' +
+            '</div>' +
+            '<div class="cookie-consent-buttons">' +
+                '<button class="cookie-accept-btn">Accept</button>' +
+                '<button class="cookie-decline-btn">Decline</button>' +
+            '</div>';
+        document.body.appendChild(banner);
+
+        banner.querySelector('.cookie-accept-btn').addEventListener('click', function () {
+            setCookie('cookieConsent', 'accepted', 30);
+            banner.classList.add('hidden');
+            setTimeout(function () { banner.remove(); }, 400);
+        });
+
+        banner.querySelector('.cookie-decline-btn').addEventListener('click', function () {
+            setCookie('cookieConsent', 'declined', 30);
+            banner.classList.add('hidden');
+            setTimeout(function () { banner.remove(); }, 400);
+        });
+    }
+
     var header = document.querySelector('.header-content');
     var nav = document.querySelector('.nav-links');
     var hamburger = document.createElement('button');
@@ -21,18 +73,42 @@ document.addEventListener('DOMContentLoaded', function () {
         musicBtn.innerHTML = '<i class="fas fa-volume-mute"></i>';
         document.body.appendChild(musicBtn);
         var isPlaying = false;
+
+        var musicPref = getCookie('musicPref');
+        if (musicPref === 'on') {
+            bgMusic.play().catch(function () { });
+            musicBtn.innerHTML = '<i class="fas fa-volume-up"></i>';
+            isPlaying = true;
+        }
+
         musicBtn.addEventListener('click', function () {
-            if (isPlaying) { bgMusic.pause(); musicBtn.innerHTML = '<i class="fas fa-volume-mute"></i>'; }
-            else { bgMusic.play(); musicBtn.innerHTML = '<i class="fas fa-volume-up"></i>'; }
+            if (isPlaying) {
+                bgMusic.pause();
+                musicBtn.innerHTML = '<i class="fas fa-volume-mute"></i>';
+                setCookie('musicPref', 'off', 30);
+            } else {
+                bgMusic.play();
+                musicBtn.innerHTML = '<i class="fas fa-volume-up"></i>';
+                setCookie('musicPref', 'on', 30);
+            }
             isPlaying = !isPlaying;
         });
     }
 
+    var regexPatterns = {
+        name: /^[A-Za-z]{2,}(\s[A-Za-z]{2,})+$/,
+        email: /^[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}$/,
+        phone: /^(\+91[\-\s]?)?[6-9]\d{9}$/,
+        password: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
+        age: /^(1[6-9]|[2-8]\d|9[0-9])$/
+    };
+
     var form = document.querySelector('form');
-    var nameInput = document.querySelector('input[type="text"]');
-    var ageInput = document.querySelector('input[type="number"]');
-    var emailInput = document.querySelector('input[type="email"]');
-    var passwordInput = document.querySelector('input[type="password"]');
+    var nameInput = document.getElementById('regName');
+    var ageInput = document.getElementById('regAge');
+    var emailInput = document.getElementById('regEmail');
+    var phoneInput = document.getElementById('regPhone');
+    var passwordInput = document.getElementById('regPassword');
 
     function showValidation(input, message, isValid) {
         var existing = input.parentElement.querySelector('.validation-msg');
@@ -55,33 +131,58 @@ document.addEventListener('DOMContentLoaded', function () {
         input.style.borderColor = '';
     }
 
+
     if (nameInput) {
         nameInput.addEventListener('input', function () {
             var val = this.value.trim();
-            if (val.length === 0) { clearValidation(this); }
-            else if (val.length < 2) { showValidation(this, 'Name must be at least 2 characters', false); }
-            else if (!/^[a-zA-Z\s]+$/.test(val)) { showValidation(this, 'Name should only contain letters', false); }
-            else { showValidation(this, '✓ Looks good!', true); }
+            if (val.length === 0) {
+                clearValidation(this);
+            } else if (!/^[A-Za-z\s]+$/.test(val)) {
+                showValidation(this, '✗ Only letters and spaces allowed', false);
+            } else if (!regexPatterns.name.test(val)) {
+                showValidation(this, '✗ Enter full name (first & last name)', false);
+            } else {
+                showValidation(this, '✓ Valid name', true);
+            }
         });
     }
 
     if (ageInput) {
         ageInput.addEventListener('input', function () {
-            var val = parseInt(this.value);
-            if (this.value === '') { clearValidation(this); }
-            else if (isNaN(val) || val < 16) { showValidation(this, 'Must be at least 16 years old', false); }
-            else if (val > 99) { showValidation(this, 'Please enter a valid age', false); }
-            else { showValidation(this, '✓ Valid age', true); }
+            var val = this.value.trim();
+            if (val.length === 0) {
+                clearValidation(this);
+            } else if (!regexPatterns.age.test(val)) {
+                showValidation(this, '✗ Age must be between 16 and 99', false);
+            } else {
+                showValidation(this, '✓ Valid age', true);
+            }
         });
     }
 
     if (emailInput) {
         emailInput.addEventListener('input', function () {
             var val = this.value.trim();
-            var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            if (val.length === 0) { clearValidation(this); }
-            else if (!emailRegex.test(val)) { showValidation(this, 'Please enter a valid email address', false); }
-            else { showValidation(this, '✓ Valid email', true); }
+            if (val.length === 0) {
+                clearValidation(this);
+            } else if (!regexPatterns.email.test(val)) {
+                showValidation(this, '✗ Enter a valid email (e.g. john@example.com)', false);
+            } else {
+                showValidation(this, '✓ Valid email', true);
+            }
+        });
+    }
+
+    if (phoneInput) {
+        phoneInput.addEventListener('input', function () {
+            var val = this.value.trim();
+            if (val.length === 0) {
+                clearValidation(this);
+            } else if (!regexPatterns.phone.test(val)) {
+                showValidation(this, '✗ Enter valid Indian mobile (e.g. 9876543210 or +91 9876543210)', false);
+            } else {
+                showValidation(this, '✓ Valid phone number', true);
+            }
         });
     }
 
@@ -104,11 +205,11 @@ document.addEventListener('DOMContentLoaded', function () {
                 return;
             }
 
-            if (val.length >= 6) score++;
-            if (val.length >= 10) score++;
+            if (/[a-z]/.test(val)) score++;
             if (/[A-Z]/.test(val)) score++;
-            if (/[0-9]/.test(val)) score++;
-            if (/[^A-Za-z0-9]/.test(val)) score++;
+            if (/\d/.test(val)) score++;
+            if (/[@$!%*?&]/.test(val)) score++;
+            if (val.length >= 8) score++;
 
             var levels = [
                 { width: '20%', color: '#ef4444', label: 'Very Weak' },
@@ -123,6 +224,18 @@ document.addEventListener('DOMContentLoaded', function () {
             fill.style.background = level.color;
             text.textContent = level.label;
             text.style.color = level.color;
+
+            if (!regexPatterns.password.test(val)) {
+                var missing = [];
+                if (!/[a-z]/.test(val)) missing.push('lowercase');
+                if (!/[A-Z]/.test(val)) missing.push('uppercase');
+                if (!/\d/.test(val)) missing.push('digit');
+                if (!/[@$!%*?&]/.test(val)) missing.push('special char (@$!%*?&)');
+                if (val.length < 8) missing.push('min 8 characters');
+                showValidation(this, '✗ Needs: ' + missing.join(', '), false);
+            } else {
+                showValidation(this, '✓ Strong password!', true);
+            }
         });
     }
 
@@ -154,28 +267,32 @@ document.addEventListener('DOMContentLoaded', function () {
             var valid = true;
             var firstInvalid = null;
 
-            if (nameInput && nameInput.value.trim().length < 2) {
-                showValidation(nameInput, 'Please enter your full name', false);
+            if (nameInput && !regexPatterns.name.test(nameInput.value.trim())) {
+                showValidation(nameInput, '✗ Enter full name (first & last name, letters only)', false);
                 valid = false;
                 if (!firstInvalid) firstInvalid = nameInput;
             }
 
-            var age = ageInput ? parseInt(ageInput.value) : 0;
-            if (ageInput && (isNaN(age) || age < 16 || age > 99)) {
-                showValidation(ageInput, 'Please enter a valid age (16-99)', false);
+            if (ageInput && !regexPatterns.age.test(ageInput.value.trim())) {
+                showValidation(ageInput, '✗ Age must be between 16 and 99', false);
                 valid = false;
                 if (!firstInvalid) firstInvalid = ageInput;
             }
 
-            var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            if (emailInput && !emailRegex.test(emailInput.value.trim())) {
-                showValidation(emailInput, 'Please enter a valid email', false);
+            if (emailInput && !regexPatterns.email.test(emailInput.value.trim())) {
+                showValidation(emailInput, '✗ Enter a valid email address', false);
                 valid = false;
                 if (!firstInvalid) firstInvalid = emailInput;
             }
 
-            if (passwordInput && passwordInput.value.length < 6) {
-                showValidation(passwordInput, 'Password must be at least 6 characters', false);
+            if (phoneInput && !regexPatterns.phone.test(phoneInput.value.trim())) {
+                showValidation(phoneInput, '✗ Enter a valid Indian mobile number', false);
+                valid = false;
+                if (!firstInvalid) firstInvalid = phoneInput;
+            }
+
+            if (passwordInput && !regexPatterns.password.test(passwordInput.value)) {
+                showValidation(passwordInput, '✗ Password needs: 8+ chars, upper, lower, digit, special char', false);
                 valid = false;
                 if (!firstInvalid) firstInvalid = passwordInput;
             }
@@ -183,19 +300,30 @@ document.addEventListener('DOMContentLoaded', function () {
             if (!valid) {
                 e.preventDefault();
                 if (firstInvalid) firstInvalid.focus();
-                
+
                 var card = document.querySelector('.reg-card');
                 if (card) {
                     card.style.animation = 'shake 0.5s ease';
-                    setTimeout(function() { card.style.animation = ''; }, 500);
+                    setTimeout(function () { card.style.animation = ''; }, 500);
                 }
             } else {
                 e.preventDefault();
+
+                setCookie('userName', nameInput.value.trim(), 7);
+                setCookie('userEmail', emailInput.value.trim(), 7);
+                setCookie('userAge', ageInput.value.trim(), 7);
+                setCookie('userPhone', phoneInput.value.trim(), 7);
+                var licenseRadio = document.querySelector('input[name="license"]:checked');
+                if (licenseRadio) {
+                    var licenseLabel = licenseRadio.parentElement.textContent.trim();
+                    setCookie('userLicense', licenseLabel, 7);
+                }
+
                 var submitBtn = form.querySelector('.submit-btn');
                 submitBtn.innerHTML = '<i class="fas fa-check"></i> Registered!';
                 submitBtn.style.background = '#22c55e';
-                
-                setTimeout(function() {
+
+                setTimeout(function () {
                     window.location.href = 'page3.html';
                 }, 1200);
             }

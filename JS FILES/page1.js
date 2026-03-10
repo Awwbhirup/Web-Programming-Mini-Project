@@ -1,6 +1,58 @@
 
 document.addEventListener('DOMContentLoaded', function () {
 
+    function setCookie(name, value, days) {
+        var expires = '';
+        if (days) {
+            var date = new Date();
+            date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+            expires = '; expires=' + date.toUTCString();
+        }
+        document.cookie = name + '=' + encodeURIComponent(value) + expires + '; path=/';
+    }
+
+    function getCookie(name) {
+        var nameEQ = name + '=';
+        var ca = document.cookie.split(';');
+        for (var i = 0; i < ca.length; i++) {
+            var c = ca[i].trim();
+            if (c.indexOf(nameEQ) === 0) return decodeURIComponent(c.substring(nameEQ.length));
+        }
+        return null;
+    }
+
+    function deleteCookie(name) {
+        document.cookie = name + '=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/';
+    }
+
+    if (!getCookie('cookieConsent')) {
+        var banner = document.createElement('div');
+        banner.className = 'cookie-consent-banner';
+        banner.innerHTML =
+            '<div class="cookie-consent-text">' +
+                '<i class="fas fa-cookie-bite"></i>' +
+                'We use cookies to enhance your experience, remember your preferences, and personalize content. ' +
+                'By clicking "Accept", you consent to our use of cookies.' +
+            '</div>' +
+            '<div class="cookie-consent-buttons">' +
+                '<button class="cookie-accept-btn">Accept</button>' +
+                '<button class="cookie-decline-btn">Decline</button>' +
+            '</div>';
+        document.body.appendChild(banner);
+
+        banner.querySelector('.cookie-accept-btn').addEventListener('click', function () {
+            setCookie('cookieConsent', 'accepted', 30);
+            banner.classList.add('hidden');
+            setTimeout(function () { banner.remove(); }, 400);
+        });
+
+        banner.querySelector('.cookie-decline-btn').addEventListener('click', function () {
+            setCookie('cookieConsent', 'declined', 30);
+            banner.classList.add('hidden');
+            setTimeout(function () { banner.remove(); }, 400);
+        });
+    }
+
     const header = document.querySelector('.header-content');
     const nav = document.querySelector('.nav-links');
 
@@ -26,6 +78,15 @@ document.addEventListener('DOMContentLoaded', function () {
             hamburger.querySelector('i').className = 'fas fa-bars';
         });
     });
+
+    var userName = getCookie('userName');
+    var heroContent = document.querySelector('.hero-content');
+    if (userName && heroContent) {
+        var welcomeBadge = document.createElement('div');
+        welcomeBadge.className = 'welcome-back-badge';
+        welcomeBadge.innerHTML = '<i class="fas fa-hand-sparkles"></i> Welcome back, ' + userName + '!';
+        heroContent.insertBefore(welcomeBadge, heroContent.firstChild);
+    }
 
     function animateCounter(element, target, suffix) {
         var current = 0;
@@ -68,7 +129,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     window.addEventListener('scroll', handleStatsScroll);
-    handleStatsScroll(); // Check on load too
+    handleStatsScroll();
 
     var fadeElements = document.querySelectorAll('.feature-card, .section-title');
     
@@ -86,7 +147,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     var bgMusic = document.getElementById('bg-music');
     if (bgMusic) {
-        bgMusic.pause(); // Don't autoplay until user interacts
+        bgMusic.pause();
         
         var musicBtn = document.createElement('button');
         musicBtn.className = 'music-toggle';
@@ -95,13 +156,23 @@ document.addEventListener('DOMContentLoaded', function () {
         document.body.appendChild(musicBtn);
         
         var isPlaying = false;
+
+        var musicPref = getCookie('musicPref');
+        if (musicPref === 'on') {
+            bgMusic.play().catch(function () { });
+            musicBtn.innerHTML = '<i class="fas fa-volume-up"></i>';
+            isPlaying = true;
+        }
+
         musicBtn.addEventListener('click', function () {
             if (isPlaying) {
                 bgMusic.pause();
                 musicBtn.innerHTML = '<i class="fas fa-volume-mute"></i>';
+                setCookie('musicPref', 'off', 30);
             } else {
                 bgMusic.play();
                 musicBtn.innerHTML = '<i class="fas fa-volume-up"></i>';
+                setCookie('musicPref', 'on', 30);
             }
             isPlaying = !isPlaying;
         });

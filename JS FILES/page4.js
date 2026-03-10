@@ -1,6 +1,58 @@
 
 document.addEventListener('DOMContentLoaded', function () {
 
+    function setCookie(name, value, days) {
+        var expires = '';
+        if (days) {
+            var date = new Date();
+            date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+            expires = '; expires=' + date.toUTCString();
+        }
+        document.cookie = name + '=' + encodeURIComponent(value) + expires + '; path=/';
+    }
+
+    function getCookie(name) {
+        var nameEQ = name + '=';
+        var ca = document.cookie.split(';');
+        for (var i = 0; i < ca.length; i++) {
+            var c = ca[i].trim();
+            if (c.indexOf(nameEQ) === 0) return decodeURIComponent(c.substring(nameEQ.length));
+        }
+        return null;
+    }
+
+    function deleteCookie(name) {
+        document.cookie = name + '=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/';
+    }
+
+    if (!getCookie('cookieConsent')) {
+        var banner = document.createElement('div');
+        banner.className = 'cookie-consent-banner';
+        banner.innerHTML =
+            '<div class="cookie-consent-text">' +
+                '<i class="fas fa-cookie-bite"></i>' +
+                'We use cookies to enhance your experience, remember your preferences, and personalize content. ' +
+                'By clicking "Accept", you consent to our use of cookies.' +
+            '</div>' +
+            '<div class="cookie-consent-buttons">' +
+                '<button class="cookie-accept-btn">Accept</button>' +
+                '<button class="cookie-decline-btn">Decline</button>' +
+            '</div>';
+        document.body.appendChild(banner);
+
+        banner.querySelector('.cookie-accept-btn').addEventListener('click', function () {
+            setCookie('cookieConsent', 'accepted', 30);
+            banner.classList.add('hidden');
+            setTimeout(function () { banner.remove(); }, 400);
+        });
+
+        banner.querySelector('.cookie-decline-btn').addEventListener('click', function () {
+            setCookie('cookieConsent', 'declined', 30);
+            banner.classList.add('hidden');
+            setTimeout(function () { banner.remove(); }, 400);
+        });
+    }
+
     var header = document.querySelector('.header-content');
     var nav = document.querySelector('.nav-links');
     var hamburger = document.createElement('button');
@@ -21,23 +73,48 @@ document.addEventListener('DOMContentLoaded', function () {
         musicBtn.innerHTML = '<i class="fas fa-volume-mute"></i>';
         document.body.appendChild(musicBtn);
         var isPlaying = false;
+
+        var musicPref = getCookie('musicPref');
+        if (musicPref === 'on') {
+            bgMusic.play().catch(function () { });
+            musicBtn.innerHTML = '<i class="fas fa-volume-up"></i>';
+            isPlaying = true;
+        }
+
         musicBtn.addEventListener('click', function () {
-            if (isPlaying) { bgMusic.pause(); musicBtn.innerHTML = '<i class="fas fa-volume-mute"></i>'; }
-            else { bgMusic.play(); musicBtn.innerHTML = '<i class="fas fa-volume-up"></i>'; }
+            if (isPlaying) {
+                bgMusic.pause();
+                musicBtn.innerHTML = '<i class="fas fa-volume-mute"></i>';
+                setCookie('musicPref', 'off', 30);
+            } else {
+                bgMusic.play();
+                musicBtn.innerHTML = '<i class="fas fa-volume-up"></i>';
+                setCookie('musicPref', 'on', 30);
+            }
             isPlaying = !isPlaying;
         });
     }
 
+    var lastScore = getCookie('quizScore');
+    var lastPercent = getCookie('quizPercent');
+    var quizHeader = document.querySelector('.quiz-header');
+    if (lastScore && lastPercent && quizHeader) {
+        var scoreBadge = document.createElement('div');
+        scoreBadge.className = 'last-score-badge';
+        scoreBadge.innerHTML = '<i class="fas fa-trophy"></i> Last Score: ' + lastScore + ' (' + lastPercent + '%)';
+        quizHeader.appendChild(scoreBadge);
+    }
+
     var answers = {
-        q1: 'q1b',  // Stop
-        q2: 'q2c',  // Where signage permits
-        q3: 'q3a',  // 30 km/h
-        q4: 'q4b',  // Overtaking prohibited
-        q5: 'q5b',  // Proceed with caution
-        q6: 'q6b',  // Safe following distance
-        q7: 'q7c',  // On dark roads with no other cars
-        q8: 'q8b',  // Mandatory/Compulsory
-        q9: 'q9c'   // Check mirrors and blind spots
+        q1: 'q1b',
+        q2: 'q2c',
+        q3: 'q3a',
+        q4: 'q4b',
+        q5: 'q5b',
+        q6: 'q6b',
+        q7: 'q7c',
+        q8: 'q8b',
+        q9: 'q9c'
     };
 
     var progressBar = document.getElementById('progressBar');
@@ -64,10 +141,9 @@ document.addEventListener('DOMContentLoaded', function () {
     var timerDiv = document.createElement('div');
     timerDiv.className = 'quiz-timer';
     timerDiv.innerHTML = '<i class="fas fa-clock"></i> <span id="timerDisplay">10:00</span>';
-    var quizHeader = document.querySelector('.quiz-header');
     if (quizHeader) quizHeader.appendChild(timerDiv);
 
-    var timeLeft = 600; // 10 minutes
+    var timeLeft = 600;
     var timerDisplay = document.getElementById('timerDisplay');
 
     var timerInterval = setInterval(function () {
@@ -228,6 +304,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
         var percent = Math.round((score / total) * 100);
         var passed = percent >= 60;
+
+        setCookie('quizScore', score + '/' + total, 30);
+        setCookie('quizPercent', percent, 30);
 
         var resultDiv = document.createElement('div');
         resultDiv.className = 'quiz-result ' + (passed ? 'result-pass' : 'result-fail');

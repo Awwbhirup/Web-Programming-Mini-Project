@@ -1,6 +1,58 @@
 
 document.addEventListener('DOMContentLoaded', function () {
 
+    function setCookie(name, value, days) {
+        var expires = '';
+        if (days) {
+            var date = new Date();
+            date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+            expires = '; expires=' + date.toUTCString();
+        }
+        document.cookie = name + '=' + encodeURIComponent(value) + expires + '; path=/';
+    }
+
+    function getCookie(name) {
+        var nameEQ = name + '=';
+        var ca = document.cookie.split(';');
+        for (var i = 0; i < ca.length; i++) {
+            var c = ca[i].trim();
+            if (c.indexOf(nameEQ) === 0) return decodeURIComponent(c.substring(nameEQ.length));
+        }
+        return null;
+    }
+
+    function deleteCookie(name) {
+        document.cookie = name + '=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/';
+    }
+
+    if (!getCookie('cookieConsent')) {
+        var banner = document.createElement('div');
+        banner.className = 'cookie-consent-banner';
+        banner.innerHTML =
+            '<div class="cookie-consent-text">' +
+                '<i class="fas fa-cookie-bite"></i>' +
+                'We use cookies to enhance your experience, remember your preferences, and personalize content. ' +
+                'By clicking "Accept", you consent to our use of cookies.' +
+            '</div>' +
+            '<div class="cookie-consent-buttons">' +
+                '<button class="cookie-accept-btn">Accept</button>' +
+                '<button class="cookie-decline-btn">Decline</button>' +
+            '</div>';
+        document.body.appendChild(banner);
+
+        banner.querySelector('.cookie-accept-btn').addEventListener('click', function () {
+            setCookie('cookieConsent', 'accepted', 30);
+            banner.classList.add('hidden');
+            setTimeout(function () { banner.remove(); }, 400);
+        });
+
+        banner.querySelector('.cookie-decline-btn').addEventListener('click', function () {
+            setCookie('cookieConsent', 'declined', 30);
+            banner.classList.add('hidden');
+            setTimeout(function () { banner.remove(); }, 400);
+        });
+    }
+
     var header = document.querySelector('.header-content');
     var nav = document.querySelector('.nav-links');
     var hamburger = document.createElement('button');
@@ -21,10 +73,48 @@ document.addEventListener('DOMContentLoaded', function () {
         musicBtn.innerHTML = '<i class="fas fa-volume-mute"></i>';
         document.body.appendChild(musicBtn);
         var isPlaying = false;
+
+        var musicPref = getCookie('musicPref');
+        if (musicPref === 'on') {
+            bgMusic.play().catch(function () { });
+            musicBtn.innerHTML = '<i class="fas fa-volume-up"></i>';
+            isPlaying = true;
+        }
+
         musicBtn.addEventListener('click', function () {
-            if (isPlaying) { bgMusic.pause(); musicBtn.innerHTML = '<i class="fas fa-volume-mute"></i>'; }
-            else { bgMusic.play(); musicBtn.innerHTML = '<i class="fas fa-volume-up"></i>'; }
+            if (isPlaying) {
+                bgMusic.pause();
+                musicBtn.innerHTML = '<i class="fas fa-volume-mute"></i>';
+                setCookie('musicPref', 'off', 30);
+            } else {
+                bgMusic.play();
+                musicBtn.innerHTML = '<i class="fas fa-volume-up"></i>';
+                setCookie('musicPref', 'on', 30);
+            }
             isPlaying = !isPlaying;
+        });
+    }
+
+    var feedbackRegex = /^[A-Za-z0-9\s.,!?'"\-]{10,500}$/;
+
+    var feedbackSent = getCookie('feedbackSent');
+    var formSection = document.querySelector('.contact-form-section');
+
+    if (feedbackSent === 'true' && formSection) {
+        var thankYou = document.createElement('div');
+        thankYou.className = 'feedback-thankyou';
+        thankYou.innerHTML =
+            '<i class="fas fa-check-circle"></i>' +
+            '<h3>Thank You for Your Feedback!</h3>' +
+            '<p>We received your feedback and appreciate your time. You can submit new feedback below.</p>' +
+            '<button class="feedback-new-btn"><i class="fas fa-pen"></i> Send New Feedback</button>';
+
+        var existingForm = formSection.querySelector('form');
+        formSection.insertBefore(thankYou, existingForm);
+
+        thankYou.querySelector('.feedback-new-btn').addEventListener('click', function () {
+            deleteCookie('feedbackSent');
+            thankYou.remove();
         });
     }
 
@@ -90,6 +180,10 @@ document.addEventListener('DOMContentLoaded', function () {
         counterDiv.style.cssText = 'font-size: 0.8rem; color: #94a3b8; text-align: right; margin-top: 5px;';
         textarea.parentElement.appendChild(counterDiv);
 
+        var regexMsg = document.createElement('div');
+        regexMsg.style.cssText = 'font-size: 0.8rem; margin-top: 4px;';
+        textarea.parentElement.appendChild(regexMsg);
+
         textarea.addEventListener('input', function () {
             var len = textarea.value.length;
             counterDiv.textContent = len + ' / ' + maxChars + ' characters';
@@ -102,6 +196,24 @@ document.addEventListener('DOMContentLoaded', function () {
                 counterDiv.style.color = '#eab308';
             } else {
                 counterDiv.style.color = '#94a3b8';
+            }
+
+            var val = textarea.value;
+            if (val.length === 0) {
+                regexMsg.textContent = '';
+                textarea.style.borderColor = '';
+            } else if (val.length < 10) {
+                regexMsg.textContent = '✗ Message must be at least 10 characters';
+                regexMsg.style.color = '#ef4444';
+                textarea.style.borderColor = '#ef4444';
+            } else if (!feedbackRegex.test(val)) {
+                regexMsg.textContent = '✗ Only letters, numbers, and basic punctuation (.,!?\'-") allowed';
+                regexMsg.style.color = '#ef4444';
+                textarea.style.borderColor = '#ef4444';
+            } else {
+                regexMsg.textContent = '✓ Valid message';
+                regexMsg.style.color = '#22c55e';
+                textarea.style.borderColor = '#22c55e';
             }
         });
     }
@@ -116,11 +228,21 @@ document.addEventListener('DOMContentLoaded', function () {
                 return;
             }
 
-            if (textarea && textarea.value.trim().length < 10) {
-                alert('Please write at least 10 characters in your message.');
-                textarea.focus();
-                return;
+            if (textarea) {
+                var val = textarea.value.trim();
+                if (val.length < 10) {
+                    alert('Please write at least 10 characters in your message.');
+                    textarea.focus();
+                    return;
+                }
+                if (!feedbackRegex.test(val)) {
+                    alert('Your message contains invalid characters. Only letters, numbers, and basic punctuation are allowed.');
+                    textarea.focus();
+                    return;
+                }
             }
+
+            setCookie('feedbackSent', 'true', 1);
 
             var btn = form.querySelector('button[type="submit"]');
             btn.innerHTML = '<i class="fas fa-check"></i> Feedback Sent!';
@@ -164,6 +286,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 btn.style.color = '';
                 btn.disabled = false;
                 if (counterDiv) counterDiv.textContent = '0 / ' + maxChars + ' characters';
+                if (regexMsg) { regexMsg.textContent = ''; textarea.style.borderColor = ''; }
                 var rf = document.querySelector('.rating-feedback');
                 if (rf) rf.textContent = '';
             }, 3000);
