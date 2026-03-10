@@ -1,12 +1,10 @@
 
 
-
 .news-container {
     max-width: 1100px;
-    margin: calc(var(--header-height) + 40px) auto;
+    margin: calc(var(--header-height) + 20px) auto;
     padding: 0 20px;
 }
-
 
 .breaking-news {
     background: rgba(59, 130, 246, 0.1);
@@ -17,7 +15,7 @@
     align-items: center;
     overflow: hidden;
     position: relative;
-    margin-bottom: 40px;
+    margin-bottom:-100px;
     backdrop-filter: blur(5px);
 }
 
@@ -56,10 +54,9 @@
     100% { left: 0; transform: translateX(-150%); }
 }
 
-
 .section-title {
     font-size: 2.5rem;
-    margin-bottom: 30px;
+    margin-bottom: 60px;
     border-bottom: 1px solid rgba(255,255,255,0.1);
     padding-bottom: 10px;
     display: inline-block;

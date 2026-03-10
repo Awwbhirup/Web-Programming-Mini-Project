@@ -1,6 +1,6 @@
 
 .emergency-header {
-    background: linear-gradient(rgba(220, 38, 38, 0.8), rgba(185, 28, 28, 0.9)), url('../MEDIA/emergency-hero.png');
+    background: linear-gradient(rgba(220, 38, 38, 0.8), rgba(185, 28, 28, 0.9)), url('../MEDIA/images/emergency-hero.png');
     background-size: cover;
     background-position: center 30%;
     color: white;
@@ -33,7 +33,6 @@
     70% { transform: scale(1); box-shadow: 0 0 0 15px rgba(255, 255, 255, 0); }
     100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(255, 255, 255, 0); }
 }
-
 
 .steps-container {
     max-width: 900px;
@@ -100,7 +99,6 @@
 .faq-item input:checked ~ .faq-content {
     max-height: 200px;
 }
-
 
 .faq-item:has(input:checked) {
     border-color: var(--primary-color);
