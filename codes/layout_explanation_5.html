@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Page 5 Layout Guide - Feedback</title>
+    <style>
+        :root { --primary: #22c55e; --text: #1e293b; --bg: #f8f9fa; --border: #e2e8f0; }
+        body { font-family: system-ui, sans-serif; background: var(--bg); color: var(--text); padding: 40px; margin: 0; }
+        .container { max-width: 1000px; mx-auto: 0; display: grid; grid-template-columns: 2fr 1fr; gap: 40px; margin: 0 auto; }
+        .preview { background: white; border: 1px solid var(--border); border-radius: 12px; height: 400px; display: flex; overflow: hidden; box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1); }
+        
+        .left-panel { width: 50%; background: linear-gradient(135deg, #1e40af, #1e3a8a); color: white; padding: 20px; display: flex; flex-direction: column; justify-content: center; gap: 15px; }
+        .right-panel { width: 50%; padding: 20px; display: flex; flex-direction: column; justify-content: center; gap: 15px; }
+
+        .info-item { background: rgba(255,255,255,0.1); padding: 10px; border-radius: 4px; font-size: 0.8rem; }
+        .map-preview { height: 80px; background: rgba(255,255,255,0.2); border-radius: 4px; display: flex; align-items: center; justify-content: center; font-size: 0.7rem; }
+        
+        .form-input { height: 35px; border: 1px solid #e2e8f0; border-radius: 4px; }
+        .star-rating { color: #fbbf24; font-size: 1.2rem; }
+        .submit-btn { background: #2563eb; color: white; height: 40px; border-radius: 4px; display: flex; align-items: center; justify-content: center; }
+
+        .annotations { display: flex; flex-direction: column; gap: 20px; }
+        .card { background: white; padding: 20px; border-radius: 8px; border-left: 4px solid var(--primary); box-shadow: 0 2px 4px rgb(0 0 0 / 0.05); }
+        h1 { grid-column: 1 / -1; text-align: center; margin-bottom: 40px; color: var(--primary); }
+        h3 { margin: 0 0 8px 0; font-size: 1.1rem; }
+        p { margin: 0; font-size: 0.9rem; line-height: 1.5; color: #64748b; }
+        .number { display: inline-block; width: 24px; height: 24px; background: var(--primary); color: white; text-align: center; line-height: 24px; border-radius: 50%; margin-right: 8px; font-size: 0.8rem; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Page 5: Contact & Feedback Layout</h1>
+        
+        <div class="preview">
+            <div class="left-panel">
+                <div style="font-weight: bold;">1. Contact Info</div>
+                <div class="info-item">Address, Phone, Email</div>
+                <div class="map-preview">2. Location Map</div>
+            </div>
+            
+            <div class="right-panel">
+                <div style="font-weight: bold;">3. Feedback Form</div>
+                <div class="star-rating">★★★★☆</div>
+                <div class="form-input" style="height: 80px; background:#f8fafc;">Comments...</div>
+                <div class="submit-btn">4. Submit</div>
+            </div>
+        </div>
+
+        <div class="annotations">
+            <div class="card">
+                <h3><span class="number">1</span>Split Layout</h3>
+                <p>The page is divided into two equal halves. The left side (dark blue) is informational, while the right side (white) is interactive.</p>
+            </div>
+            <div class="card">
+                <h3><span class="number">2</span>Contact Details</h3>
+                <p>Displays static company information: Address, Phone, and Email, along with an embedded location map image.</p>
+            </div>
+            <div class="card">
+                <h3><span class="number">3</span>Star Rating System</h3>
+                <p>Users can select a rating from 1 to 5 stars. The interface provides immediate visual feedback on the selection.</p>
+            </div>
+            <div class="card">
+                <h3><span class="number">4</span>Comment Form</h3>
+                <p>A text area for detailed written feedback. The submit button is disabled until a rating is selected to ensure quality data.</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

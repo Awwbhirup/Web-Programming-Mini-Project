@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Page 3 Layout Guide - Course Content</title>
+    <style>
+        :root { --primary: #eab308; --text: #1e293b; --bg: #f8f9fa; --border: #e2e8f0; }
+        body { font-family: system-ui, sans-serif; background: var(--bg); color: var(--text); padding: 40px; margin: 0; }
+        .container { max-width: 1000px; mx-auto: 0; display: grid; grid-template-columns: 2fr 1fr; gap: 40px; margin: 0 auto; }
+        .preview { background: white; border: 1px solid var(--border); border-radius: 12px; height: 500px; display: flex; overflow: hidden; box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1); }
+        
+        .sidebar { width: 30%; background: #f8fafc; border-right: 1px solid var(--border); padding: 10px; display: flex; flex-direction: column; gap: 10px; }
+        .main-content { flex: 1; padding: 20px; display: flex; flex-direction: column; gap: 20px; overflow-y: auto; }
+
+        .block-module { height: 40px; background: white; border: 1px solid var(--border); border-radius: 4px; display: flex; align-items: center; padding-left: 10px; font-size: 0.8rem; color: #64748b; }
+        .block-video { height: 250px; background: #0f172a; border-radius: 8px; display: flex; align-items: center; justify-content: center; color: white; }
+        .block-text { height: 80px; background: #f1f5f9; border-radius: 4px; }
+        .block-audio { height: 60px; background: #fefce8; border: 1px dashed var(--primary); border-radius: 4px; display: flex; align-items: center; justify-content: center; color: var(--primary); }
+
+        .annotations { display: flex; flex-direction: column; gap: 20px; }
+        .card { background: white; padding: 20px; border-radius: 8px; border-left: 4px solid var(--primary); box-shadow: 0 2px 4px rgb(0 0 0 / 0.05); }
+        h1 { grid-column: 1 / -1; text-align: center; margin-bottom: 40px; color: var(--primary); }
+        h3 { margin: 0 0 8px 0; font-size: 1.1rem; }
+        p { margin: 0; font-size: 0.9rem; line-height: 1.5; color: #64748b; }
+        .number { display: inline-block; width: 24px; height: 24px; background: var(--primary); color: white; text-align: center; line-height: 24px; border-radius: 50%; margin-right: 8px; font-size: 0.8rem; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Page 3: Course Dashboard Layout</h1>
+        
+        <div class="preview">
+            <!-- Sidebar -->
+            <div class="sidebar">
+                <div style="font-weight: bold; margin-bottom: 10px;">1. Modules</div>
+                <div class="block-module">Introduction</div>
+                <div class="block-module">Road Signs</div>
+                <div class="block-module">Right of Way</div>
+            </div>
+
+            <!-- Main Content -->
+            <div class="main-content">
+                <div class="block-video">2. Video Player</div>
+                <div class="block-text">3. Course Description</div>
+                <div class="block-audio">4. Audio Examples</div>
+            </div>
+        </div>
+
+        <div class="annotations">
+            <div class="card">
+                <h3><span class="number">1</span>Sidebar Navigation</h3>
+                <p>Lists all course modules. Allows the user to switch between different topics (e.g., Road Signs, Safety).</p>
+            </div>
+            <div class="card">
+                <h3><span class="number">2</span>Main Video Area</h3>
+                <p>The primary learning interface. A large video player serves the educational content to the student.</p>
+            </div>
+            <div class="card">
+                <h3><span class="number">3</span>Text & Description</h3>
+                <p>Supplementary text below the video provides summaries, key takeaways, or transcripts.</p>
+            </div>
+            <div class="card">
+                <h3><span class="number">4</span>Audio Player</h3>
+                <p>An interactive component for listening to audio examples (e.g., horns, sirens) relevant to the traffic lesson.</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

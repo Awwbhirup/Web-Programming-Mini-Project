@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Page 4 Layout Guide - Assessment</title>
+    <style>
+        :root { --primary: #ef4444; --text: #1e293b; --bg: #f8f9fa; --border: #e2e8f0; }
+        body { font-family: system-ui, sans-serif; background: var(--bg); color: var(--text); padding: 40px; margin: 0; }
+        .container { max-width: 1000px; mx-auto: 0; display: grid; grid-template-columns: 2fr 1fr; gap: 40px; margin: 0 auto; }
+        .preview { background: #fef2f2; border: 1px solid var(--border); border-radius: 12px; padding: 20px; box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1); }
+        
+        .block-header { background: white; padding: 15px; border-radius: 8px; margin-bottom: 20px; border-left: 4px solid var(--primary); }
+        .progress-bar { height: 8px; background: #fee2e2; border-radius: 4px; margin-top: 10px; }
+        .progress-fill { height: 100%; width: 60%; background: var(--primary); border-radius: 4px; }
+        
+        .question-stack { display: flex; flex-direction: column; gap: 15px; }
+        .question-card { background: white; padding: 15px; border-radius: 8px; border: 1px solid #e5e7eb; }
+        .canvas-area { height: 100px; background: white; border: 2px dashed #cbd5e1; border-radius: 8px; display: flex; align-items: center; justify-content: center; margin-top: 20px; color: #9ca3af; }
+        .submit-btn { background: var(--primary); color: white; padding: 12px; text-align: center; border-radius: 6px; margin-top: 20px; font-weight: bold; }
+
+        .annotations { display: flex; flex-direction: column; gap: 20px; }
+        .card { background: white; padding: 20px; border-radius: 8px; border-left: 4px solid var(--primary); box-shadow: 0 2px 4px rgb(0 0 0 / 0.05); }
+        h1 { grid-column: 1 / -1; text-align: center; margin-bottom: 40px; color: var(--primary); }
+        h3 { margin: 0 0 8px 0; font-size: 1.1rem; }
+        p { margin: 0; font-size: 0.9rem; line-height: 1.5; color: #64748b; }
+        .number { display: inline-block; width: 24px; height: 24px; background: var(--primary); color: white; text-align: center; line-height: 24px; border-radius: 50%; margin-right: 8px; font-size: 0.8rem; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Page 4: Quiz & Assessment Layout</h1>
+        
+        <div class="preview">
+            <div class="block-header">
+                <div>1. Assessment Header</div>
+                <div class="progress-bar"><div class="progress-fill"></div></div>
+            </div>
+
+            <div class="question-stack">
+                <div class="question-card">2. Question Block 1 (Multiple Choice)</div>
+                <div class="question-card">2. Question Block 2 (Multiple Choice)</div>
+            </div>
+
+            <div class="canvas-area">
+                3. Drawing Canvas (Interactive)
+            </div>
+
+            <div class="submit-btn">4. Submit Assessment</div>
+        </div>
+
+        <div class="annotations">
+            <div class="card">
+                <h3><span class="number">1</span>Progress Header</h3>
+                <p>Displays the "Final Assessment" title and a real-time progress bar showing how many questions have been answered.</p>
+            </div>
+            <div class="card">
+                <h3><span class="number">2</span>Question Blocks</h3>
+                <p>A list of multiple-choice questions (e.g., traffic sign identification). Users select one option per question.</p>
+            </div>
+            <div class="card">
+                <h3><span class="number">3</span>Drawing Canvas</h3>
+                <p>An interactive area where users can draw (e.g., "Draw a yield sign") to test practical knowledge beyond simple checkboxes.</p>
+            </div>
+            <div class="card">
+                <h3><span class="number">4</span>Submission</h3>
+                <p>Validates that all questions are answered before submitting the final score.</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

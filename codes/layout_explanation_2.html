@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Page 2 Layout Guide - Registration</title>
+    <style>
+        :root { --primary: #7c3aed; --text: #1e293b; --bg: #f8f9fa; --border: #e2e8f0; }
+        body { font-family: system-ui, sans-serif; background: var(--bg); color: var(--text); padding: 40px; margin: 0; }
+        .container { max-width: 1000px; mx-auto: 0; display: grid; grid-template-columns: 2fr 1fr; gap: 40px; margin: 0 auto; }
+        .preview { background: #f3f4f6; border: 1px solid var(--border); border-radius: 12px; height: 500px; display: flex; align-items: center; justify-content: center; box-shadow: inset 0 0 20px rgb(0 0 0 / 0.05); }
+        .block { border: 2px dashed #a78bfa; background: white; padding: 20px; width: 60%; border-radius: 8px; box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1); }
+        .block-input { height: 40px; background: #f9fafb; border: 1px solid #e5e7eb; margin-bottom: 15px; border-radius: 4px; display: flex; align-items: center; padding-left: 10px; color: #9ca3af; font-size: 0.8rem; }
+        .block-btn { height: 45px; background: var(--primary); color: white; display: flex; align-items: center; justify-content: center; border-radius: 4px; font-weight: bold; }
+        
+        .annotations { display: flex; flex-direction: column; gap: 20px; }
+        .card { background: white; padding: 20px; border-radius: 8px; border-left: 4px solid var(--primary); box-shadow: 0 2px 4px rgb(0 0 0 / 0.05); }
+        h1 { grid-column: 1 / -1; text-align: center; margin-bottom: 40px; color: var(--primary); }
+        h3 { margin: 0 0 8px 0; font-size: 1.1rem; }
+        p { margin: 0; font-size: 0.9rem; line-height: 1.5; color: #64748b; }
+        .number { display: inline-block; width: 24px; height: 24px; background: var(--primary); color: white; text-align: center; line-height: 24px; border-radius: 50%; margin-right: 8px; font-size: 0.8rem; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Page 2: Registration Layout</h1>
+        
+        <div class="preview">
+            <!-- Simulated Layout -->
+            <div class="block">
+                <center style="margin-bottom: 20px; font-weight: bold;">Student Registration</center>
+                <div class="block-input">1. Full Name</div>
+                <div class="block-input">2. Age</div>
+                <div class="block-input">3. Email Address</div>
+                <div class="block-input">4. License Type (Dropdown)</div>
+                <div class="block-btn">5. Start Learning</div>
+            </div>
+        </div>
+
+        <div class="annotations">
+            <div class="card">
+                <h3><span class="number">1</span>Centered Card Layout</h3>
+                <p>The entire page isolates the user's focus on a single central card element, minimizing distractions to improve conversation rates.</p>
+            </div>
+            <div class="card">
+                <h3><span class="number">2</span>Data Collection</h3>
+                <p>Standard form inputs collect user identity. "Age" has validation (min/max), and "License Type" allows selection between Learner and Permanent.</p>
+            </div>
+            <div class="card">
+                <h3><span class="number">3</span>Action Button</h3>
+                <p>A prominent "Start Learning" button submits the data and acts as the gateway to the course content.</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
