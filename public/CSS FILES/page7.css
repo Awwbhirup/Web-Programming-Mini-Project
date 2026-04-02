@@ -1,0 +1,113 @@
+
+.emergency-header {
+    background: linear-gradient(rgba(220, 38, 38, 0.8), rgba(185, 28, 28, 0.9)), url('../MEDIA/images/emergency-hero.png');
+    background-size: cover;
+    background-position: center 30%;
+    color: white;
+    padding: 40px 20px;
+    text-align: center;
+    margin-top: calc(var(--header-height) + 20px);
+    border-radius: var(--border-radius);
+    box-shadow: 0 10px 30px rgba(220, 38, 38, 0.2);
+    margin-bottom: 30px;
+    position: relative;
+    overflow: hidden;
+}
+
+.emergency-btn-pulse {
+    background: white;
+    color: #dc2626;
+    border: none;
+    padding: 12px 30px;
+    font-size: 1.1rem;
+    font-weight: 800;
+    border-radius: 50px;
+    cursor: pointer;
+    margin-top: 20px;
+    box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.7);
+    animation: pulse-white 2s infinite;
+}
+
+@keyframes pulse-white {
+    0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.7); }
+    70% { transform: scale(1); box-shadow: 0 0 0 15px rgba(255, 255, 255, 0); }
+    100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(255, 255, 255, 0); }
+}
+
+.steps-container {
+    max-width: 900px;
+    margin: 0 auto 40px auto;
+    padding: 0 20px;
+}
+
+.faq-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.faq-item {
+    background: var(--glass-bg);
+    border: var(--glass-border);
+    border-radius: var(--glass-radius);
+    backdrop-filter: blur(20px);
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.faq-item input[type="checkbox"] {
+    display: none;
+}
+
+.faq-header {
+    padding: 20px 25px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    background: rgba(255, 255, 255, 0.03);
+    transition: background 0.3s ease;
+}
+
+.faq-header span {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: white;
+}
+
+.faq-header .icon {
+    color: var(--primary-color);
+    transition: transform 0.3s ease;
+}
+
+.faq-item input:checked + .faq-header .icon {
+    transform: rotate(180deg);
+}
+
+.faq-item input:checked + .faq-header {
+    background: rgba(59, 130, 246, 0.1);
+}
+
+.faq-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s cubic-bezier(0, 1, 0, 1);
+    background: rgba(0, 0, 0, 0.2);
+}
+
+.faq-item input:checked ~ .faq-content {
+    max-height: 200px;
+}
+
+.faq-item:has(input:checked) {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 20px rgba(59, 130, 246, 0.3);
+}
+
+.faq-content p {
+    padding: 20px 25px;
+    margin-bottom: 0;
+    font-size: 0.95rem;
+    color: #cbd5e1;
+}
